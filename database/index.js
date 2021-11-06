@@ -4,7 +4,7 @@ const { Mongoose } = require("mongoose");
 
 const connectDB = () =>
   new Promise((resolve, reject) => {
-    Mongoose.connect(process.env.MONGODB_SRTING, (error) => {
+    Mongoose.connect(process.env.MONGODB_STRING, (error) => {
       if (error) {
         debug(chalk.red("La base de datos, que no va."));
         debug(chalk.red(error.message));
