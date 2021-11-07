@@ -6,10 +6,10 @@ const getRobots = async (req, res) => {
 };
 
 const getRobotById = async (req, res, next) => {
-  const { id } = req.params;
-  console.log(id);
+  const { idRobot } = req.params;
+  console.log(idRobot);
   try {
-    const searchedRobot = await Robot.findById(id);
+    const searchedRobot = await Robot.findById(idRobot);
     if (searchedRobot) {
       res.json(searchedRobot);
     } else {
