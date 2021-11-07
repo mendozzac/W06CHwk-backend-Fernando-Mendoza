@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get("/", getRobots);
 
-router.get("/:id", getRobotById);
+router.get("/:idRobot", getRobotById);
 
 module.exports = router;
