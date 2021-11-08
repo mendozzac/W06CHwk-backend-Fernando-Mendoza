@@ -7,7 +7,7 @@ const getRobots = async (req, res) => {
 
 const getRobotById = async (req, res, next) => {
   const { idRobot } = req.params;
-  console.log(idRobot);
+
   try {
     const searchedRobot = await Robot.findById(idRobot);
     if (searchedRobot) {
