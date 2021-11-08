@@ -1,14 +1,8 @@
-const bcrypt = require("bcrypt");
 const express = require("express");
-const User = require("../../database/models/user");
+const checkLogin = require("../controller/userController");
 
 const router = express.Router();
 
-router.get("/", async () => {
-  User.create({
-    name: "Keiko",
-    password: await bcrypt.hash("arribalafruta", 10),
-  });
-});
+router.post("/login", checkLogin);
 
 module.exports = router;
