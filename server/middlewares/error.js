@@ -1,3 +1,5 @@
+const { ValidationError } = require("express-validation");
+
 const debug = require("debug")("robots:errors");
 
 const notFoundErrorHandler = (req, res) => {
@@ -6,6 +8,10 @@ const notFoundErrorHandler = (req, res) => {
 
 // eslint-disable-next-line no-unused-vars
 const generalErrorHandler = (error, req, res, next) => {
+  if (error instanceof ValidationError) {
+    error.code = 400;
+    error.message = "Error de validación";
+  }
   debug("¡ERROR! ", error.message);
   const message = error.code ? error.message : "Petó todo";
   res.status(error.code || 500).json({ error: message });
