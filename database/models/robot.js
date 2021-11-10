@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const robotSchema = new Schema({
   name: {
@@ -8,6 +8,10 @@ const robotSchema = new Schema({
   image: {
     type: String,
     required: true,
+  },
+  user: {
+    type: Types.ObjectId,
+    ref: "User",
   },
   features: {
     speed: {

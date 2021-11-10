@@ -13,18 +13,21 @@ const {
 
 const app = express();
 
-const initializeServer = (port) => {
-  const server = app.listen(port, () => {
-    debug(chalk.yellow(`Escuchando el palique del puero ${port}.`));
-  });
+const initializeServer = (port) =>
+  new Promise((resolve, reject) => {
+    const server = app.listen(port, () => {
+      debug(chalk.yellow(`Escuchando el palique del puero ${port}.`));
+    });
 
-  server.on("error", (error) => {
-    debug(chalk.red("Al iniciar, peta."));
-    if (error.code === "EADDRINUSE") {
-      debug(chalk.red(`El puerto ${port} se está usando.`));
-    }
+    server.on("error", (error) => {
+      debug(chalk.red("Al iniciar, peta."));
+      if (error.code === "EADDRINUSE") {
+        debug(chalk.red(`El puerto ${port} se está usando.`));
+      }
+      reject();
+    });
+    resolve(server);
   });
-};
 
 app.use(morgan("dev"));
 app.use(cors());
@@ -35,4 +38,4 @@ app.use("/users", userRoute);
 app.use(notFoundErrorHandler);
 app.use(generalErrorHandler);
 
-module.exports = initializeServer;
+module.exports = { app, initializeServer };
