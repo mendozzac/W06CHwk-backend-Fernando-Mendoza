@@ -2,7 +2,7 @@ const debug = require("debug")("robots:database");
 const chalk = require("chalk");
 const mongoose = require("mongoose");
 
-const connectDB = () =>
+const connectDB = (string) =>
   new Promise((resolve, reject) => {
     mongoose.set("toJSON", {
       virtuals: true,
@@ -14,7 +14,7 @@ const connectDB = () =>
       },
     });
 
-    mongoose.connect(process.env.MONGODB_STRING, (error) => {
+    mongoose.connect(string, (error) => {
       if (error) {
         debug(chalk.red("La base de datos, que no va."));
         debug(chalk.red(error.message));
@@ -26,6 +26,7 @@ const connectDB = () =>
 
     mongoose.connection.on("close", () => {
       debug(chalk.yellow("Desconectado ed la base dedatos."));
+      resolve();
     });
   });
 
